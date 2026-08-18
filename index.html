@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แปลงตัวอักษรจ้า</title>
+    
+    <!-- ใส่ไอคอนเว็บ (Favicon) -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
     <!-- นำเข้าฟอนต์ Mali จาก Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,21 +48,21 @@
             margin-bottom: 20px;
         }
 
-textarea {
-    width: 100%;
-    height: 220px;
-    min-height: 120px; /* กำหนดความสูงขั้นต่ำ ไม่ให้ย่อจนเล็กเกินไป */
-    background-color: #e0f2fe;
-    border: none;
-    border-radius: 20px;
-    padding: 20px;
-    font-size: 19px;
-    color: #334155;
-    resize: both; /* เปลี่ยนเป็น both เพื่อให้ดึงขยาย-ย่อได้ทั้งแนวตั้งและแนวนอน */
-    outline: none;
-    margin-bottom: 20px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
-}
+        textarea {
+            width: 100%;
+            height: 220px;
+            min-height: 120px;
+            background-color: #e0f2fe;
+            border: none;
+            border-radius: 20px;
+            padding: 20px;
+            font-size: 19px;
+            color: #334155;
+            resize: both;
+            outline: none;
+            margin-bottom: 20px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
 
         textarea::placeholder {
             color: #94a3b8;
@@ -151,11 +155,13 @@ textarea {
 
             if (!text.trim()) return;
 
-            // ลบสเปซท้ายบรรทัด + ลบบรรทัดว่าง
+            // 1. แยกบรรทัด
+            // 2. ใช้ .trim() ตัดช่องว่างทั้งข้างหน้าและข้างหลังของแต่ละบรรทัดออก
+            // 3. ลบบรรทัดที่ว่างเปล่าออก
             let cleanText = text
                 .split('\n')
-                .map(line => line.trimEnd())
-                .filter(line => line.trim() !== '')
+                .map(line => line.trim())            // ตัดช่องว่างหน้า-หลัง
+                .filter(line => line !== '')         // ตัดบรรทัดว่าง
                 .join('\n');
 
             if (type === 'lower') {
